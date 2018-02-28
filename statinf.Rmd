@@ -1,0 +1,39 @@
+---
+title: "statinf"
+author: "SC"
+date: "26 February 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Placeholder
+
+```{r sbx}
+# we can look at the residuals
+x <- road_tidy$Distance; y <- road_tidy$Calories
+fit <- lm(y ~x)
+summary(fit)
+summary(fit)$sigma # just to grab the residual variance - in this case 38.4 calories per unit of distance
+coef(fit) # 63 calories for every unit of distance
+
+# and plot the residuals
+g = ggplot(data.frame(x = x, y = resid(lm(y ~ x))),
+           aes(x = x, y = y))
+g = g + geom_hline(yintercept = 0, size = 2);
+g = g + geom_point(size = 7, colour = "black", alpha = 0.4)
+g = g + geom_point(size = 5, colour = "red", alpha = 0.4)
+g = g + xlab("X") + ylab("Residual")
+g # we can see no real pattern to the data, therefore the fit is pretty good
+
+
+# t-test on relationship of pace by month
+# investigate: datatable and group_by
+# t.test(road_tidy$`Avg Pace`, road_tidy$gain, na.action=na.omit)
+t.test(road_tidy$tot_mins, road_tidy$Title)
+
+
+
+```

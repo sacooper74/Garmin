@@ -1,0 +1,18 @@
+"0","# import the file, overriding ""TIme"" upon import, otherwise it will be set to col_type Time and values lost"
+"0","activities_raw <- read_csv(""Activities_Master.csv"", "
+"0","                           col_types = cols("
+"0","                             Date = col_datetime(format = ""%d/%m/%Y %H:%M""),"
+"0","                             Time = col_character(),"
+"0","                             `Avg Pace` = col_time(format = ""%M:%S"")"
+"0","                           ),"
+"0","                           na = ""--"")"
+"2","Duplicated column names deduplicated: 'Avg Cadence' => 'Avg Cadence_1' [22], 'Max Cadence' => 'Max Cadence_1' [23]"
+"2","2 parsing failures.
+row [38;5;246m# A tibble: 2 x 5[39m col     row col      expected        actual file                    expected   [3m[38;5;246m<int>[39m[23m [3m[38;5;246m<chr>[39m[23m    [3m[38;5;246m<chr>[39m[23m           [3m[38;5;246m<chr>[39m[23m  [3m[38;5;246m<chr>[39m[23m                   actual [38;5;250m1[39m   108 Avg Pace time like %M:%S 19.8   'Activities_Master.csv' file [38;5;250m2[39m   109 Avg Pace time like %M:%S 16.6   'Activities_Master.csv'
+"
+"0","# some useful readr functions:"
+"0","# spec(activities_raw) # review parsed column formats"
+"0","# problems(activities_raw) # review problems during parsing"
+"0","# activities_raw # review the final ""tibble"""
+"0","# remove spaces from field names"
+"0","names(activities_raw) <- make.names(names(activities_raw))"

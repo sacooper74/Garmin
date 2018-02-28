@@ -1,0 +1,2 @@
+"0","# remove blank columns"
+"0","activities_raw <- select(activities_raw, 1:20)"

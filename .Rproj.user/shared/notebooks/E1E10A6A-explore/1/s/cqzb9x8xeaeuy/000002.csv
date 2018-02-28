@@ -1,0 +1,4 @@
+"0","# we can also write to csv"
+"0","# write_csv(activities_raw, ""activities_raw.csv"")"
+"0","# save global environment to RData file"
+"0","save.image(file = ""activities.RData"")"

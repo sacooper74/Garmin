@@ -1,0 +1,6 @@
+"0","# correlation"
+"0","cor(activities_tidy$vo2max, activities_tidy$Avg.Cadence, use = ""pairwise.complete.obs"")"
+"1","[1]"
+"1"," 0.8392938"
+"1","
+"

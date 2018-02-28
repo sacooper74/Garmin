@@ -1,0 +1,100 @@
+---
+title: "Garmin Data Exploration"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r setwd}
+setwd("C:/Users/steve.a.cooper/Google Drive/Coursera - DS/self/garmin")
+getwd()
+```
+
+## Why?
+
+Garmin is great, but the visuals and data exploration features are pretty limited.  This script is designed to help with the upload, formating and analysis of your activity tracker... 
+
+## Importing data
+
+Login to Garmin connect and grab the activities in csv format.  Recommended to grab all the available fields.  Save these to your desktop and move to your working directory with the name "Activities_Master.csv"
+
+```{r}
+activities <- read.csv("Activities_Master.csv", 
+                       sep = ",", 
+                       skip = 2,
+                       as.is = TRUE
+                       )
+```
+
+
+## Format various fields and create a dataset for analysis
+
+We're going to do a chunk of work to remove fields that are typically blank for running.  Sorry, I've had to hardcode a load of this for the moment
+
+```{r}
+# remove unnecessary columns
+actvalues <- activities[,c(2:15, 21:22, 25:26, 32)]
+
+# filter for running and trail running only (dplyr can only be used without POSIX fields)
+library(dplyr)
+actvalues <- filter(actvalues, Activity.Type == "Running" | Activity.Type == "Trail Running")
+
+# format Elevation Gain as integer
+actvalues$Elevation.Gain <- as.integer(actvalues$Elevation.Gain)
+
+# group elevation gain into categorical variables "high" and "low"
+actvalues$gain <- ifelse(actvalues$Elevation.Gain > 250, "high", "low")
+
+# set date format for "start" field
+actvalues$date <- as.Date(actvalues$Start, "%a, %b %e, %Y %H:%M %p")
+
+# set time formats for "pace" fields
+actvalues$Time <- strptime(actvalues$Time, "%H:%M:%S")
+actvalues$Avg.Speed.Avg.Pace. <- strptime(actvalues$Avg.Speed.Avg.Pace., "%M:%S")
+actvalues$Max.Speed.Best.Pace. <- strptime(actvalues$Max.Speed.Best.Pace., "%M:%S")
+
+
+# Convert Avg.Run.Cadence to strides per minute
+actvalues$spm <- as.integer(actvalues$Avg.Run.Cadence)
+actvalues$spm <- actvalues$spm * 2
+```
+
+## Relationship of Cadence and Pace
+
+Cadence has a direct relationship on pace.
+
+```{r pressure, echo=FALSE}
+library(ggplot2)
+ggplot(data = actvalues, mapping = aes(x = spm, y = Avg.Speed.Avg.Pace.)) +
+        geom_point() +
+        geom_smooth(aes(linetype = Activity.Type)) +
+        labs(title = "Runs in 2016") + labs(x = "Cadence (Strides per Minute)", y = "Pace (/km)") +
+        scale_y_datetime(date_labels = "%M:%S")
+```
+
+## Evolution of Performance
+
+```{r time_series}
+library(ggplot2)
+ggplot(data = actvalues, mapping = aes(x = date, y = Avg.Speed.Avg.Pace.)) +
+        geom_point() +
+        geom_smooth(aes(linetype = Activity.Type))
+        #scale_x_datetime(date_labels = "%M:%S")
+```
+
+## Other Graphs
+
+```{r vo2 max}
+
+actvalues$Avg.HR <- as.numeric(actvalues$Avg.HR)
+
+boxplot(spm~date, data=actvalues)
+plot(actvalues$Avg.HR~actvalues$Elevation.Loss)
+
+cor(actvalues)
+str(actvalues)
+
+```
+

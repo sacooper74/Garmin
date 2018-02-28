@@ -1,0 +1,5 @@
+"0","# frequency distribution"
+"0","activities_tidy %>%"
+"0","  filter(Activity.Type == ""running"") %>%"
+"0","  ggplot(aes(log(vo2max), y = ..density.., color = Activity.Type)) + # note: y has been set to density instead of count"
+"0","  geom_freqpoly(binwidth = 0.1)"

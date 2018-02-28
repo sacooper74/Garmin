@@ -1,0 +1,2 @@
+"0","# let's have a look at the first 5 rows of data"
+"0","head(activities_raw)"

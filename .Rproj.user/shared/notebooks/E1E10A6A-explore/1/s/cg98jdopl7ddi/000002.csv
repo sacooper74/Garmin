@@ -1,0 +1,5 @@
+"0","# VO2Max and Run Type"
+"0","activities_tidy %>%"
+"0","  filter(Activity.Type != ""cycling"") %>%"
+"0","  ggplot(aes(Activity.Type, vo2max)) +"
+"0","  geom_boxplot()"

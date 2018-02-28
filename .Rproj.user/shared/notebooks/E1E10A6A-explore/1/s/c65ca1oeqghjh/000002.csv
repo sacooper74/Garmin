@@ -1,0 +1,2 @@
+"0","# scatter plot for all numeric variables"
+"0","pairs(activities_tidy[,nums])"

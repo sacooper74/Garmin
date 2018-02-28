@@ -1,0 +1,7 @@
+"0","# # Plot: Time and Distance"
+"0","# # ADD: mean"
+"0","activities_tidy %>%"
+"0","        ggplot(aes(week, tot_mins)) +"
+"0","        geom_bar(color = ""black"", alpha=.5, size=0, show.legend = NA, stat = (""identity"")) +"
+"0","        geom_smooth() +"
+"0","        scale_x_date(date_breaks = ""3 month"", date_labels = ""%b %Y"")"

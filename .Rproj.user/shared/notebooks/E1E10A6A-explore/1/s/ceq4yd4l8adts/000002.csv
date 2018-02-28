@@ -1,0 +1,4 @@
+"0","# We can use Correlogram to look at this"
+"0","nums <- sapply(activities_tidy, is.numeric)"
+"0","corr <- round(cor(activities_tidy[,nums], use = ""pairwise.complete.obs""), 1)"
+"0","ggcorrplot(corr, lab = T, lab_size = 3, method = ""circle"", colors = c(""tomato2"", ""white"", ""springgreen3""))"

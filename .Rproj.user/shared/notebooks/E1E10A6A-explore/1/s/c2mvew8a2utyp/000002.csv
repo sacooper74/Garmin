@@ -1,0 +1,5 @@
+"0","activities_tidy %>%"
+"0","  filter(Activity.Type != ""cycling"") %>%"
+"0","  ggplot(mapping = aes(Avg.Cadence, vo2max)) +"
+"0","  geom_point() +"
+"0","  geom_smooth()"

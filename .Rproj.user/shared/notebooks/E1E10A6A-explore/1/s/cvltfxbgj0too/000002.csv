@@ -1,0 +1,8 @@
+"0","# check for blanks and n/a"
+"0","# x0 <- activities_raw$Avg.Cadence"
+"0","# class(x0)"
+"0","# str(x0)"
+"0","# summary(x0) # we can see we have some NA's"
+"0","# mean(is.na(x0)) # is that missing data a problem?"
+"0","# mean(is.na(activities_raw))"
+"0","filter(activities_tidy, is.na(activities_tidy$Avg.Cadence))"

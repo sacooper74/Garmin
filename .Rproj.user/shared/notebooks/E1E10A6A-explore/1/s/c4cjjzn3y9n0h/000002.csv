@@ -1,0 +1,6 @@
+"0","# Plot: Cadence over Time"
+"0","activities_tidy %>%"
+"0","        ggplot(mapping = aes(Date, vo2max)) +"
+"0","        geom_point() +"
+"0","#       legend ** for the colours"
+"0","        geom_smooth()"
